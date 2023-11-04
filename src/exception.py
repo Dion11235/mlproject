@@ -1,5 +1,5 @@
 import sys
-from logger import logging
+from src.logger import logging
 # import logging
 
 def error_handler(error, error_detail:sys):
@@ -7,7 +7,7 @@ def error_handler(error, error_detail:sys):
     file_name = exc_tb.tb_frame.f_code.co_filename
     line_no = exc_tb.tb_lineno
     
-    error_msg = f"Error occured in the file {file_name} in line {line_no}. Error message : {str(error)}"
+    error_msg = f"{file_name} - line: {line_no} - Error message: {str(error)}"
     
     return error_msg
     
@@ -30,5 +30,6 @@ if __name__ == "__main__":
     try:
         a = 1/0
     except Exception as e:
-        print(f"Caught an exception : {CustomException(e, sys)}")
-        logging.info(str(e))
+        error = CustomException(e, sys)
+        print(f"Caught an exception : {error}")
+        logging.info(error)
